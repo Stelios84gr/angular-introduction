@@ -22,7 +22,9 @@ export class AppComponent {
     email: 'stilfridakis@aueb.gr'
   }
 
-    // Step 3 - Component input
+  // Step 2 - person-table component sending data to parent component and displaying them
+  
+    // Step 3 - Component input (parent component sending data to person-table component and displaying them)
     person0: Person = {
       givenName: "Christodoulos",
       surName: "Fragkoudakis",
