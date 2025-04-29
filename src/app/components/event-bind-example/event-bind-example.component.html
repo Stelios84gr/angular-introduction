@@ -16,7 +16,7 @@
     <button class="btn btn-primary btn-sm" (click) = "reset()">Reset</button>
 </div>
 
-<div class="mt-2 d-flex -flex-column gap-2 w-25">
+<div class="mt-2 d-flex flex-column gap-2 w-25">
     <!-- $event: αυτό που περιέχει το πεδίο 'input' -->
     <input type="text" class="form-control" (input)="onUserInput($event)">
     @if (!userInput) {

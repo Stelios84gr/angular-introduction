@@ -23,7 +23,7 @@ export class SimpleDatatableComponent {
     console.log(sortKey);
   }
 
-  onPersonClicked(person:EPerson) {
+  onPersonClicked(person: EPerson) {
     console.log("Person>>", person)
   }
 }
