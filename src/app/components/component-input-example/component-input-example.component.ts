@@ -20,7 +20,7 @@ export class ComponentInputExampleComponent {
   person1: Person = {
     givenName: 'John',
     surName: 'Doe',
-    age: 0,
+    age: 45,
     email: 'john@aueb.gr',
     address: 'Athens, Greece'
   }

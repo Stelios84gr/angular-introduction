@@ -706,5 +706,5 @@ export const ManyPerson: EPerson[] = [
       age: '58',
       email: 'ryanmlopez23@rocketmail.com',
       education: 'Associate degree',
-    },
+    }
   ];

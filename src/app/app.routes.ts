@@ -11,6 +11,7 @@ export const routes: Routes = [
     { path: 'component-input-example', component:ComponentInputExampleComponent},
     { path: 'event-bind-example', component: EventBindExampleComponent},
     { path: 'simple-datatable-example', component: SimpleDatatableComponent},
+    { path: 'app-simple-datatable-example', component: SimpleDatatableExampleComponent},
     { path:'welcome', component: WelcomeComponent },
     { path: '', redirectTo:'/welcome', pathMatch:'full'}    // pathMatch:'full' so only '' leads to /welcome
 ];
