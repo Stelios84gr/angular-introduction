@@ -31,7 +31,7 @@ export class SimpleDatatableComponent {
     }
 
     for (let key in this.sortOrder) {
-      if (key!==sortKey) {
+      if (key!==sortKey) {  // αν το εκάστοτε key του sortOrder δεν είναι το sortKey, παίρνει τιμή 'none'
         this.sortOrder[key as keyof EPerson] = 'none'
       }
     }
