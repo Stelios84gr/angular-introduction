@@ -1,2 +1,4 @@
 <h4>Component Output Example</h4>
-<app-simple-datatable [data]="manyPerson"></app-simple-datatable>
+
+<!-- Πέρα από input [] δέχεται και output () -->
+<app-simple-datatable [data]= 'manyPerson' (personClicked)="showPersonClicked($event)"></app-simple-datatable>

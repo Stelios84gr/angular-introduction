@@ -11,4 +11,8 @@ import { SimpleDatatableComponent } from '../simple-datatable/simple-datatable.c
 export class ComponentOutputExampleComponent {
   manyPerson = ManyPerson;
 
+  showPersonClicked(person: EPerson) {
+    console.log("Component Output", person);
+  }
+
 }

@@ -9,8 +9,8 @@ import {sortBy} from 'lodash-es';
   styleUrl: './simple-datatable.component.css'
 })
 export class SimpleDatatableComponent {
-  @Input() data: EPerson[] | undefined;
-  @Output() personClicked = new EventEmitter<EPerson>
+  @Input() data: EPerson[] | undefined; // δέχεται data από parent component
+  @Output() personClicked = new EventEmitter<EPerson>() // στέλνει data με δομή EPerson σε parent component
 
   sortOrder = {
     givenName: 'none',
@@ -47,5 +47,6 @@ export class SimpleDatatableComponent {
 
   onPersonClicked(person: EPerson) {
     console.log("Person>>", person)
+    this.personClicked.emit(person);
   }
 }
