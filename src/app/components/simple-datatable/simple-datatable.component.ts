@@ -47,6 +47,6 @@ export class SimpleDatatableComponent {
 
   onPersonClicked(person: EPerson) {
     console.log("Person>>", person)
-    this.personClicked.emit(person);
+    this.personClicked.emit(person);  // ενεργοποιώντας το event personClicked στέλνει person
   }
 }

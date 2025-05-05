@@ -13,6 +13,19 @@ export class ComponentOutputExampleComponent {
 
   showPersonClicked(person: EPerson) {
     console.log("Component Output", person);
+    alert(this.personTemplate(person));
+  }
+
+  personTemplate(person: EPerson) {
+    return `
+    Person Details
+
+    First Name: ${person.givenName}
+    Last Name: ${person.surName}
+    Age: ${person.age}
+    Email: ${person.email}
+    Education: ${person.education}
+    `
   }
 
 }
