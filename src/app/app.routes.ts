@@ -6,6 +6,7 @@ import { EventBindExampleComponent } from './components/event-bind-example/event
 import { SimpleDatatableComponent } from './components/simple-datatable/simple-datatable.component';
 import { SimpleDatatableExampleComponent } from './components/simple-datatable-example/simple-datatable-example.component';
 import { ComponentOutputExampleComponent } from './components/component-output-example/component-output-example.component';
+import { TemplateDrivenFormsExampleComponent } from './components/template-driven-forms-example/template-driven-forms-example.component';
 
 export const routes: Routes = [
     { path: 'for-directive-example', component:ForDirectiveExampleComponent },
@@ -13,6 +14,7 @@ export const routes: Routes = [
     { path: 'component-output-example', component:ComponentOutputExampleComponent },
     { path: 'event-bind-example', component: EventBindExampleComponent},
     { path: 'simple-datatable-example', component: SimpleDatatableExampleComponent},
+    { path: 'template-driven-form-example', component: TemplateDrivenFormsExampleComponent},
     { path:'welcome', component: WelcomeComponent },
-    { path: '', redirectTo:'/welcome', pathMatch:'full'}    // pathMatch:'full' so only '' leads to /welcome
+    { path: '', redirectTo:'/welcome', pathMatch:'full'}    // pathMatch:'full' ετσι ώστε μόνο το '' να οδηγεί στο /welcome
 ];
