@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { EPerson } from 'src/app/shared/interfaces/eperson';
 import { Person } from 'src/app/shared/interfaces/person';
 
 @Component({
@@ -8,7 +9,7 @@ import { Person } from 'src/app/shared/interfaces/person';
   styleUrl: './person-table.component.css'
 })
 export class PersonTableComponent {
-  @Input() personInput: Person | undefined; // θα εισαχθεί κάτι που θα εκχωρηθεί στη μεταβλητή "personInput" και θα είναι είτε τύπου Person είτε undefined
+  @Input() personInput: Person | EPerson | undefined; // θα εισαχθεί κάτι που θα εκχωρηθεί στη μεταβλητή "personInput" και θα είναι είτε τύπου Person είτε EPerson είτε undefined
   name = "Thanassis"
 
   person = {

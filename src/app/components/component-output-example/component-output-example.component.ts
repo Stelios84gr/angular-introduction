@@ -1,19 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { EPerson, ManyPerson } from 'src/app/shared/interfaces/eperson';
 import { SimpleDatatableComponent } from '../simple-datatable/simple-datatable.component';
+import { Dialog, DialogRef, DIALOG_DATA, DialogModule } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-component-output-example',
-  imports: [SimpleDatatableComponent],
+  imports: [DialogModule, SimpleDatatableComponent],
   templateUrl: './component-output-example.component.html',
   styleUrl: './component-output-example.component.css'
 })
 export class ComponentOutputExampleComponent {
   manyPerson = ManyPerson;
+  dialog = inject(Dialog);
+
+  // αντί να δημιουργήσω constructor με μεταβλητή dialog
+
+  // constructor(public dialog: Dialog) {}
 
   showPersonClicked(person: EPerson) {
     console.log("Component Output", person);
-    alert(this.personTemplate(person));
+    // alert(this.personTemplate(person));
+
+    // δημιουργία material design pop-up αντί για alert με χρήση του Dialog βάση οδηγιών στο Angular Material
+    this.dialog.open(PersonDialogComponent, {
+      data:person
+    })
   }
 
   personTemplate(person: EPerson) {
@@ -28,4 +39,54 @@ export class ComponentOutputExampleComponent {
     `
   }
 
+}
+
+// component που θα περαστεί στο dialog για το pop-up παράθυρο - δεν έχει selector, έχει τα δικά του template και style - ιδιαιτερότητα Angular: δημιουργία component στο ίδιο αρχείο με προϋπάρχον component
+@Component({
+  imports: [],
+  template: `
+    <table class="table table-bordered w-50">
+        <caption>Person Details</caption>
+        <tr>
+            <td class="fw-semibold text-end">First Name</td>
+            <td class="ps-2">{{person.givenName}}</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold text-end">Last Name</td>
+            <td class="ps-2">{{person.surName}}</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold text-end">Age</td>
+            <td class="ps-2">{{person.age}}</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold text-end">Email</td>
+            <td class="ps-2">{{person.email}}</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold text-end">Education</td>
+            <td class="ps-2">{{person.education}}</td>
+          </tr>
+    </table>
+    <!-- χρήση dialogRef για κουμπί "Close" στο pop-up παράθυρο -->
+  <button class="btn btn-primary btn-sm" (click)="dialogRef.close()">Close</button>
+  `,
+  styles: [
+    `
+    :host {
+      display: block;
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      max-width: 500px;
+    }
+    `
+  ]
+})
+// @Inject(DIALOG_DATA): εμφάνιση στοιχείου απ' το Material Design με εισαγωγή ως data public μεταβλητή (γιατί θέλουμε να εμφανιστεί στο template) person τύπου EPerson
+export class PersonDialogComponent {
+  dialogRef = inject(DialogRef);
+  constructor(
+    @Inject(DIALOG_DATA) public person: EPerson
+  ){}
 }
