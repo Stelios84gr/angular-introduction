@@ -7,7 +7,6 @@ import { SimpleDatatableComponent } from './components/simple-datatable/simple-d
 import { SimpleDatatableExampleComponent } from './components/simple-datatable-example/simple-datatable-example.component';
 import { ComponentOutputExampleComponent } from './components/component-output-example/component-output-example.component';
 import { TemplateDrivenFormsExampleComponent } from './components/template-driven-forms-example/template-driven-forms-example.component';
-import { ReactiveFormComponent } from './components/reactive-form/reactive-form.component';
 import { ReactiveFormExampleComponent } from './components/reactive-form-example/reactive-form-example.component';
 
 export const routes: Routes = [
