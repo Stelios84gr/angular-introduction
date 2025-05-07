@@ -1,9 +1,9 @@
 export interface EPerson {
-    givenName: string,
-    surName: string,
-    age: string,
-    email: string,
-    education: string
+    givenName: string | null ,
+    surName: string | null ,
+    age: string | null ,
+    email: string | null ,
+    education: string | null
 }
 
 export const ManyPerson: EPerson[] = [

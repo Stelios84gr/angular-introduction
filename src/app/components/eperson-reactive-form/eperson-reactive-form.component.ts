@@ -4,6 +4,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { EPerson } from 'src/app/shared/interfaces/eperson';
 
 // FormControl: δήλωση στη φόρμα ποια είναι αυτή
 // FormGroup: δήλωση ομάδων πεδίων που το υλοποιούν
@@ -29,4 +30,22 @@ export class EpersonReactiveFormComponent {
     email: new FormControl('', [ Validators.required, Validators.email ]),
     education: new FormControl('', Validators.required)
   });
+
+  onSubmit(data: any) {
+    console.log("Data", data);
+    console.log(this.form);
+    console.log("givenName>>", this.form.controls['givenName'].value);
+    this.form.controls["surName"].setValue("Papakis");  // "setter"
+    console.log(this.form.value);
+  }
+
+  onSetValue() {
+    this.form.setValue({
+      givenName: "Kostas",
+      surName: "Lalakis",
+      age: "39",
+      email: "kostas@aueb.gr",
+      education: "Bachelor's degree"
+    })
+  }
 }
