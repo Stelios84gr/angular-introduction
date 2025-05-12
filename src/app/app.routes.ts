@@ -8,6 +8,7 @@ import { SimpleDatatableExampleComponent } from './components/simple-datatable-e
 import { ComponentOutputExampleComponent } from './components/component-output-example/component-output-example.component';
 import { TemplateDrivenFormsExampleComponent } from './components/template-driven-forms-example/template-driven-forms-example.component';
 import { ReactiveFormExampleComponent } from './components/reactive-form-example/reactive-form-example.component';
+import { HttpClientExampleComponent } from './components/http-client-example/http-client-example.component';
 
 export const routes: Routes = [
     { path: 'for-directive-example', component:ForDirectiveExampleComponent },
@@ -17,6 +18,7 @@ export const routes: Routes = [
     { path: 'simple-datatable-example', component: SimpleDatatableExampleComponent},
     { path: 'template-driven-form-example', component: TemplateDrivenFormsExampleComponent},
     { path: 'reactive-form-example', component: ReactiveFormExampleComponent},
+    { path: 'http-client-example', component: HttpClientExampleComponent},
     { path:'welcome', component: WelcomeComponent },
     { path: '', redirectTo:'/welcome', pathMatch:'full'}    // pathMatch:'full' ετσι ώστε μόνο το '' να οδηγεί στο /welcome
 ];
