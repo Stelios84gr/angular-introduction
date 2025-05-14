@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, linkedSignal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -17,6 +17,7 @@ export class ListGroupMenuComponent {
     { text: 'Template-Driven Form Example', linkName: 'template-driven-form-example'},
     { text: 'Reactive Form Example', linkName: 'reactive-form-example' },
     { text: 'HTTP Client Example', linkName: 'http-client-example' },
+    { text: 'User Login', linkName: 'login'},
     { text: 'User Registration Example', linkName: 'user-registration-example' }
   ]
 }

@@ -33,5 +33,10 @@ export class UseRegistrationComponent {
     }),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(5)])
-  })
+  });
+
+  onSubmit() {
+    const data = this.form.value;
+    console.log("FORM DATA>>>", data)
+  }
 }
