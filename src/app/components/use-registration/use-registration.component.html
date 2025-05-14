@@ -41,14 +41,22 @@
 
             <mat-form-field >
                 <mat-label>Password</mat-label>
-                <input matInput type="password">
-                <mat-error>Password is missing or invalid</mat-error>
+                <input matInput type="password" formControlName="password">
+                 @if (form.get('password')?.invalid && form.get('password')?.touched) { <!-- touched: το πεδίο έχει συμπληρωθεί -->
+                    <mat-error>Password is missing or invalid</mat-error>
+            }
             </mat-form-field>
 
         <mat-form-field>
             <mat-label>Confirm Password</mat-label>
-            <input matInput type="password">
-            <mat-error>Confirm Password is missing or invalid</mat-error>
+            <input matInput type="password" formControlName="confirmPassword">
+              @if(form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched) {
+                <mat-error>Confirm Password is missing or invalid</mat-error>
+              } @else {
+                @if (form.get('confirmPassword')?.hasError('passwordMismatch')) {
+            <mat-error>Passwords do not match.</mat-error>
+              }
+            }
         </mat-form-field>
 
         <button
