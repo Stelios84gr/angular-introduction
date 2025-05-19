@@ -16,11 +16,17 @@ export class UserService {
     return this.http.post<{status: boolean, data: User}>(`${API_URL}`, user);
   }
 
-  loginUser(credentials: Credentials) {
-    return this.http.post<{status:boolean, data:string}>(
-      `${API_URL_AUTH}/login`,credentials
+  check_duplicate_email(email: string) {
+    return this.http.get<{status: boolean, data: User}>(
+      `${API_URL}/check_duplicate_email/${email}`
     )
   }
+
+  // loginUser(credentials: Credentials) {
+  //   return this.http.post<{status:boolean, data:string}>(
+  //     `${API_URL_AUTH}/login`,credentials
+  //   )
+  // }
 
   // logoutUser() {
   //   this.user$.set(null);

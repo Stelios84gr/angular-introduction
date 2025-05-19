@@ -22,8 +22,15 @@
 
         <mat-form-field>
             <mat-label>Email</mat-label>
-            <input matInput type="text" formControlName="email">
-            <mat-error>Email is missing or invalid</mat-error>
+            <input matInput type="text" formControlName="email" (blur)="check_duplicate_email()"> <!-- blur: click away -->
+            <mat-error>{{emailErrorMessage()}}</mat-error>
+            <!-- @if(form.get('email')?.hasError('duplicateEmail')) {
+                <mat-error>Email is already reistered</mat-error>
+            } @else {
+                @if(form.get('email')?.invalid && form.get('email')?.touched) {
+                    <mat-error>Email is missing or invalid</mat-error>
+                }
+            } -->
         </mat-form-field>
 
         <!-- Επειδή το address είναι 1 document με 2 υποπεδία, βάζουμε τα 2 mat-form-fields μέσα σε div με formGroupName -->
