@@ -72,8 +72,8 @@ passwordConfirmValidator(control: AbstractControl): {[key: string]: boolean } | 
       'surname': this.form.get('surname')?.value || '',
       'email': this.form.get('email')?.value || '',
       'address': {
-        'area': this.form.get('area')?.value || '',
-        'road': this.form.get('road')?.value || '',
+        'area': this.form.controls.address.controls.area?.value || '',
+        'road': this.form.controls.address.controls.road?.value || '',
       }
     }
     console.log("FORM DATA>>>", data)
