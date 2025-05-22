@@ -29,6 +29,10 @@ export class UseRegistrationComponent {
 
   emailErrorMessage = signal('');
 
+  registrationStatus: {success: boolean, message: string} = {
+    success: false, message: 'Not attempted yet.'
+  }
+
   form = new FormGroup({
     username: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
@@ -77,9 +81,11 @@ passwordConfirmValidator(control: AbstractControl): {[key: string]: boolean } | 
       .subscribe({
         next: (response) => {
           console.log("User Saved", response);
+          this.registrationStatus = {success: true, message: "User registered."}
         },
         error: (response) => {
           console.log("User not saved", response);
+          this.registrationStatus = {success: false, message: response.data}
         }
       })
   }
@@ -108,5 +114,10 @@ passwordConfirmValidator(control: AbstractControl): {[key: string]: boolean } | 
           }
         })
     }
+  }
+
+  registerAnother() {
+    this.form.reset()
+    this.registrationStatus = {success: false, message: 'Not attempted yet.'}
   }
 }

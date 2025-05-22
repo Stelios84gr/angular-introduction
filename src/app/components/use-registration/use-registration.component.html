@@ -1,83 +1,92 @@
 <h4>User Registration Example</h4>
+@if (registrationStatus.message === "Not attempted yet.") {
 
-<div class="d-flex flex-column mt-2 w-50">
-    <form [formGroup]="form" class="d-flex flex-column">
-        <mat-form-field>
-            <mat-label>Username</mat-label>
-            <input matInput type="text" formControlName="username">
-            <mat-error>Username is required</mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>First Name</mat-label>
-            <input matInput type="text" formControlName="name">
-            <mat-error>First Name is required</mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Last Name</mat-label>
-            <input matInput type="text" formControlName="surname">
-            <mat-error>Last Name is required</mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput type="text" formControlName="email" (blur)="check_duplicate_email()"> <!-- blur: click away -->
-            <mat-error>{{emailErrorMessage()}}</mat-error>
-            <!-- @if(form.get('email')?.hasError('duplicateEmail')) {
-                <mat-error>Email is already reistered</mat-error>
-            } @else {
-                @if(form.get('email')?.invalid && form.get('email')?.touched) {
-                    <mat-error>Email is missing or invalid</mat-error>
-                }
-            } -->
-        </mat-form-field>
-
-        <!-- Επειδή το address είναι 1 document με 2 υποπεδία, βάζουμε τα 2 mat-form-fields μέσα σε div με formGroupName -->
-        <div class="d-flex gap-2" formGroupName="address">
-            <mat-form-field class="w-50">
-                <mat-label>Area</mat-label>
-                <input matInput type="text" formControlName="area">
+    <div class="d-flex flex-column mt-2 w-50">
+        <form [formGroup]="form" class="d-flex flex-column">
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input matInput type="text" formControlName="username">
+                <mat-error>Username is required</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="w-50">
-                <mat-label>Road</mat-label>
-                <input matInput type="text" formControlName="road">
+            <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input matInput type="text" formControlName="name">
+                <mat-error>First Name is required</mat-error>
             </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput type="text" formControlName="surname">
+                <mat-error>Last Name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput type="text" formControlName="email" (blur)="check_duplicate_email()">
+                <!-- blur: click away -->
+                <mat-error>{{emailErrorMessage()}}</mat-error>
+                <!-- @if(form.get('email')?.hasError('duplicateEmail')) {
+                    <mat-error>Email is already reistered</mat-error>
+                } @else {
+                    @if(form.get('email')?.invalid && form.get('email')?.touched) {
+                        <mat-error>Email is missing or invalid</mat-error>
+                    }
+                } -->
+            </mat-form-field>
+
+            <!-- Επειδή το address είναι 1 document με 2 υποπεδία, βάζουμε τα 2 mat-form-fields μέσα σε div με formGroupName -->
+            <div class="d-flex gap-2" formGroupName="address">
+                <mat-form-field class="w-50">
+                    <mat-label>Area</mat-label>
+                    <input matInput type="text" formControlName="area">
+                </mat-form-field>
+
+                <mat-form-field class="w-50">
+                    <mat-label>Road</mat-label>
+                    <input matInput type="text" formControlName="road">
+                </mat-form-field>
             </div>
 
-            <mat-form-field >
+            <mat-form-field>
                 <mat-label>Password</mat-label>
                 <input matInput type="password" formControlName="password">
-                 @if (form.get('password')?.invalid && form.get('password')?.touched) { <!-- touched: το πεδίο έχει συμπληρωθεί -->
-                    <mat-error>Password is missing or invalid</mat-error>
-            }
+                @if (form.get('password')?.invalid && form.get('password')?.touched) {
+                <!-- touched: το πεδίο έχει συμπληρωθεί -->
+                <mat-error>Password is missing or invalid</mat-error>
+                }
             </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Confirm Password</mat-label>
-            <input matInput type="password" formControlName="confirmPassword">
-              @if(form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched) {
+            <mat-form-field>
+                <mat-label>Confirm Password</mat-label>
+                <input matInput type="password" formControlName="confirmPassword">
+                @if(form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched) {
                 <mat-error>Confirm Password is missing or invalid</mat-error>
-              } @else {
+                } @else {
                 @if (form.get('confirmPassword')?.hasError('passwordMismatch')) {
-            <mat-error>Passwords do not match.</mat-error>
-              }
-            }
-        </mat-form-field>
+                <mat-error>Passwords do not match.</mat-error>
+                }
+                }
+            </mat-form-field>
 
-        <button
-        mat-flat-button
-        color="primary"
-        [disabled]="form.invalid"
-        (click)="onSubmit()"
-        >Register
-    </button>
-    </form>
-</div>
-
+            <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="onSubmit()">Register
+            </button>
+        </form>
+    </div>
+} else {
+    @if(registrationStatus.success) {
+        <div class="alert alert-success mt-2 w-50">
+            <strong>Sucess:</strong> {{registrationStatus.message}}
+        </div>
+    } @else {
+        <div class="alert alert-danger mt-2 w-50">
+            <strong>Error: </strong> {{registrationStatus.message}}
+        </div>
+    }
+}
 <button
 mat-flat-button color="primary" class="mt-2 w-50"
+(click) = "registerAnother()"
 >
 Register Another User
 </button>

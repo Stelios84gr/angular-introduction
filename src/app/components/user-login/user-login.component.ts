@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Credentials } from 'src/app/shared/interfaces/user';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -11,11 +13,30 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class UserLoginComponent {
   userService = inject(UserService);
+  router = inject(Router);
+  route = inject(ActivatedRoute)
 
   form = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   })
+  ngOnInit(): void {
+    this.route.queryParams
+      .subscribe(params => {
+        const access_token = params["token"];
+        if (access_token) {
+          localStorage.setItem('access_token', access_token);
+          const decodedTokenSubject = jwtDecode(access_token) as unknown as LoggedInUser
+          console.log("OnInit", decodedTokenSubject);
+          this.userService.user$.set({
+            username: decodedTokenSubject.username,
+            email:decodedTokenSubject.email,
+            roles: decodedTokenSubject.roles
+          });
+          this.router.navigate(['user-registration-example']);
+        }
+      })
+  }
 
   onSubmit() {
     console.log(this.form.value);
@@ -29,5 +50,9 @@ export class UserLoginComponent {
         console.log("Not logged in:", error)
       )
     })
+  }
+
+  googleLogin(){
+    this.userService.redirectToGoogleLogin();
   }
 }
