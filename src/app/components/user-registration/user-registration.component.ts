@@ -84,8 +84,8 @@ passwordConfirmValidator(control: AbstractControl): {[key: string]: boolean } | 
           this.registrationStatus = {success: true, message: "User registered."}
         },
         error: (response) => {
-          console.log("User not saved", response);
-          this.registrationStatus = {success: false, message: response.data}
+          console.log("User not saved", response.error.data.errorResponse.errmsg );
+          this.registrationStatus = {success: false, message: response.error.data.errorResponse.errmsg}
         }
       })
   }
