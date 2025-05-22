@@ -9,7 +9,7 @@ import { ComponentOutputExampleComponent } from './components/component-output-e
 import { TemplateDrivenFormsExampleComponent } from './components/template-driven-forms-example/template-driven-forms-example.component';
 import { ReactiveFormExampleComponent } from './components/reactive-form-example/reactive-form-example.component';
 import { HttpClientExampleComponent } from './components/http-client-example/http-client-example.component';
-import { UseRegistrationComponent } from './components/use-registration/use-registration.component';
+import { UseRegistrationComponent } from './components/user-registration/user-registration.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 
 export const routes: Routes = [

@@ -14,15 +14,15 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/interfaces/user';
 
 @Component({
-  selector: 'app-use-registration',
+  selector: 'app-user-registration',
   imports: [
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule
   ],
-  templateUrl: './use-registration.component.html',
-  styleUrl: './use-registration.component.css'
+  templateUrl: './user-registration.component.html',
+  styleUrl: './user-registration.component.css'
 })
 export class UseRegistrationComponent {
   userService = inject(UserService);
