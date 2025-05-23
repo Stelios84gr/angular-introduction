@@ -15,8 +15,7 @@ export class UserService {
   http: HttpClient = inject(HttpClient);
   router = inject(Router);
 
-  user$ = signal<LoggedInUser | null>(null);
-
+  user$ = signal<LoggedInUser | null>(null);  // τα signals με $ στο τέλος - αν έχω κάνει login είναι LoggedInUser, αν όχι, null και initialized με null
   constructor(){
     const access_token = localStorage.getItem("access_token");
     if (access_token) {

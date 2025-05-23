@@ -2,8 +2,10 @@ import { Component, inject, signal } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Credentials } from 'src/app/shared/interfaces/user';
+import { Credentials, LoggedInUser } from 'src/app/shared/interfaces/user';
 import { UserService } from 'src/app/shared/services/user.service';
+import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -44,10 +46,23 @@ export class UserLoginComponent {
 
     this.userService.loginUser(credentials).subscribe({
       next: (response) => {
-        console.log("Logged in:", response);
+        console.log("Logged in", response);
+        const access_token = response.data;
+        localStorage.setItem('access_token', access_token);
+
+        const decodedTokenSubject = jwtDecode(access_token) as unknown as LoggedInUser
+        console.log(decodedTokenSubject);
+
+        this.userService.user$.set({
+          username: decodedTokenSubject.username,
+          email: decodedTokenSubject.email,
+          roles: decodedTokenSubject.roles
+        });
+        console.log(this.userService.user$());
+        this.router.navigate(['user-registration-example']) // navigate στο user registration component μετά το login
       },
       error: (error) => (
-        console.log("Not logged in:", error)
+        console.log("Not logged in", error)
       )
     })
   }
