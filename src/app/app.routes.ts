@@ -12,6 +12,10 @@ import { HttpClientExampleComponent } from './components/http-client-example/htt
 import { UseRegistrationComponent } from './components/user-registration/user-registration.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 
+// GUARDS
+import { authGuard } from './shared/guards/auth.guard';
+import { adminRoleGuard } from './shared/guards/admin-role.guard';
+
 export const routes: Routes = [
     { path: 'for-directive-example', component:ForDirectiveExampleComponent },
     { path: 'component-input-example', component:ComponentInputExampleComponent},
@@ -21,7 +25,11 @@ export const routes: Routes = [
     { path: 'template-driven-form-example', component: TemplateDrivenFormsExampleComponent},
     { path: 'reactive-form-example', component: ReactiveFormExampleComponent},
     { path: 'http-client-example', component: HttpClientExampleComponent},
-    { path: 'user-registration-example', component: UseRegistrationComponent },
+    { path:
+        'user-registration-example',
+        component: UseRegistrationComponent,
+        canActivate: [authGuard, adminRoleGuard]    // το component θα ενεργοποιηθεί όταν περάσει τον έλεγχο των authGuard και adminRoleGuard
+    },
     { path: 'login', component: UserLoginComponent },
     { path:'welcome', component: WelcomeComponent },
     { path: '', redirectTo:'/welcome', pathMatch:'full'}    // pathMatch:'full' ετσι ώστε μόνο το '' να οδηγεί στο /welcome

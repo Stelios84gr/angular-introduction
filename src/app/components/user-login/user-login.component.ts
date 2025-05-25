@@ -53,12 +53,12 @@ export class UserLoginComponent {
         const decodedTokenSubject = jwtDecode(access_token) as unknown as LoggedInUser
         console.log(decodedTokenSubject);
 
-        this.userService.user$.set({
+        this.userService.user$.set({  // χρησιμοποιώ ένα signal καλώντας το service στο οποίο εμπεριέχεται και χρησιμοποιώντας τη διαδικασία .set
           username: decodedTokenSubject.username,
           email: decodedTokenSubject.email,
           roles: decodedTokenSubject.roles
         });
-        console.log(this.userService.user$());
+        console.log(this.userService.user$());  // με παρένθεση εμφανίζω και τα περιεχόμενα της μεταβλητής signal
         this.router.navigate(['user-registration-example']) // navigate στο user registration component μετά το login
       },
       error: (error) => (

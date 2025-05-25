@@ -9,80 +9,86 @@ const API_URL = `${environment.apiURL}/api/users`;
 const API_URL_AUTH = `${environment.apiURL}/api/auth`
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   http: HttpClient = inject(HttpClient);
   router = inject(Router);
 
-  user$ = signal<LoggedInUser | null>(null);  // τα signals με $ στο τέλος - αν έχω κάνει login είναι LoggedInUser, αν όχι, null και initialized με null
-  constructor(){
-    const access_token = localStorage.getItem("access_token");
+  user$ = signal<LoggedInUser | null>(null); // τα signals με $ στο τέλος - αν έχω κάνει login είναι LoggedInUser, αν όχι, null και initialized με null
+
+  constructor() {
+    const access_token = localStorage.getItem('access_token');
     if (access_token) {
-      const decodedTokenSubject = jwtDecode(access_token) as unknown as LoggedInUser
+      const decodedTokenSubject = jwtDecode(
+        access_token,
+      ) as unknown as LoggedInUser;
       this.user$.set({
         username: decodedTokenSubject.username,
         email: decodedTokenSubject.email,
-        roles: decodedTokenSubject.roles
-      })
+        roles: decodedTokenSubject.roles,
+      });
     }
 
-    effect(() =>{
-      if (this.user$()){
-        console.log('User Logged In', this.user$()?.username);
+    // ελέγχει αν οι μεταβλητές signal έχουν αλλάξει τρέχει κάποιες διαδικασίες
+    effect(() => {
+      if (this.user$()) {
+        console.log('User Logged In ', this.user$()?.username);
       } else {
-        console.log("No user Logged in");
+        console.log('No user Logged in');
       }
     });
   }
 
   registerUser(user: User) {
-    return this.http.post<{status: boolean, data: User}>(`${API_URL}`, user);
+    return this.http.post<{ status: boolean; data: User }>(`${API_URL}`, user);
   }
 
   check_duplicate_email(email: string) {
-    return this.http.get<{status: boolean, data: User}>(
-      `${API_URL}/check_duplicate_email/${email}`
-    )
-  }
-  
- loginUser(credentials: Credentials) {
-  return this.http.post<{status:boolean, data:string}>(
-    `${API_URL_AUTH}/login`,credentials
-  )
- }
-
-logoutUser() {
-  this.user$.set(null);
-  localStorage.removeItem('access_token');
-  this.router.navigate(['login']);
+    return this.http.get<{ status: boolean; data: User }>(
+      `${API_URL}/check_duplicate_email/${email}`,
+    );
   }
 
-isTokenExpired(): boolean {
-  const token = localStorage.getItem('access_token');
-  if (!token) return true;
+  loginUser(credentials: Credentials) {
+    return this.http.post<{ status: boolean; data: string }>(
+      `${API_URL_AUTH}/login`,
+      credentials,
+    );
+  }
 
-   try {
+  logoutUser() {
+    this.user$.set(null);
+    localStorage.removeItem('access_token');
+    this.router.navigate(['login']);
+  }
+
+  isTokenExpired(): boolean {
+    const token = localStorage.getItem('access_token');
+    if (!token) return true;
+
+    try {
       const decoded = jwtDecode(token);
       const exp = decoded.exp;
-      const now = Math.floor(Date.now()/1000);
+      const now = Math.floor(Date.now() / 1000);
       if (exp) {
         return exp < now;
       } else {
-        return true
+        return true;
       }
     } catch (err) {
-      return true
-    } 
+      return true;
+    }
   }
 
   redirectToGoogleLogin() {
-    const clientId = '49291455257-p295u853vt861qredqvkvg24m29req43.apps.googleusercontent.com';
+    const clientId =
+      '49291455257-p295u853vt861qredqvkvg24m29req43.apps.googleusercontent.com';
     const redirectUri = 'http://localhost:3000/api/auth/google/callback';
     const scope = 'email profile';
     const responseType = 'code';
-    const accessType = 'offline'
-    
+    const accessType = 'offline';
+
     const url = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&access_type=${accessType}`;
 
     window.location.href = url;
