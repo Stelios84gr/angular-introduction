@@ -6,7 +6,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const userService = inject(UserService);
   const router = inject(Router);
 
-  if (userService.user$()) {  // αν η signal έχει data
+  if (userService.user$() && !userService.isTokenExpired) {  // αν η signal έχει data και δεν έχει γίνει expire το acess token
     return true;
   }
 

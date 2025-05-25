@@ -15,5 +15,5 @@ export const adminRoleGuard: CanActivateFn = (route, state) => {
     return true;
   }
 
-  return router.navigate(['login']);  // αν όχι, στέλνει τον χρήστη στη σελίδα login
+  return router.navigate(['resticted-content']);  // αν όχι, στέλνει τον χρήστη στη σελίδα restricted content
 };

@@ -15,6 +15,7 @@ import { UserLoginComponent } from './components/user-login/user-login.component
 // GUARDS
 import { authGuard } from './shared/guards/auth.guard';
 import { adminRoleGuard } from './shared/guards/admin-role.guard';
+import { RestrictedContentComponent } from './components/restricted-content/restricted-content.component';
 
 export const routes: Routes = [
     { path: 'for-directive-example', component:ForDirectiveExampleComponent },
@@ -31,6 +32,7 @@ export const routes: Routes = [
         canActivate: [authGuard, adminRoleGuard]    // το component θα ενεργοποιηθεί όταν περάσει τον έλεγχο των authGuard και adminRoleGuard
     },
     { path: 'login', component: UserLoginComponent },
+    { path: 'restircted-content', component: RestrictedContentComponent },
     { path:'welcome', component: WelcomeComponent },
     { path: '', redirectTo:'/welcome', pathMatch:'full'}    // pathMatch:'full' ετσι ώστε μόνο το '' να οδηγεί στο /welcome
 ];
